@@ -1,7 +1,7 @@
 {
   "rewrites": [
     { "source": "/", "destination": "/public/index.html" },
-    { "source": "/app/frame", "destination": "/api/frame" },  // ← Новое правило: /app/frame → /api/frame
-    { "source": "/api/(.*)", "destination": "/api/$1" }  // Для всех API
+    { "source": "/app/frame", "destination": "/api/frame" },  
+    { "source": "/api/(.*)", "destination": "/api/$1" }  
   ]
 }

@@ -46,7 +46,7 @@ export default function handler(req, res) {
     // Ещё вопрос — показываем текст для отладки в body (но в Frame это скрыто)
     metaTags = `
       <meta property="fc:frame" content="vNext" />
-      <meta property="fc:frame:image" content="https://i.imgur.com/8yX3vOa.png" />
+      <meta property="fc:frame:image" content="	https://imgur.com/OsiSnAQ.png" />
       <meta property="fc:frame:image:aspect_ratio" content="1:1" />
       <meta property="fc:frame:button:1" content="Да (+1 балл)" />
       <meta property="fc:frame:button:2" content="Нет (0 баллов)" />
@@ -61,7 +61,7 @@ export default function handler(req, res) {
 
     metaTags = `
       <meta property="fc:frame" content="vNext" />
-      <meta property="fc:frame:image" content="https://i.imgur.com/8yX3vOa.png" />
+      <meta property="fc:frame:image" content="	https://imgur.com/OsiSnAQ.png" />
       <meta property="fc:frame:image:aspect_ratio" content="1:1" />
       <meta property="og:title" content="Результат: ${result.title} (счёт ${score}/10)" />
       <meta property="og:description" content="${result.desc}" />

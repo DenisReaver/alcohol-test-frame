@@ -18,15 +18,17 @@ const resultData = [
   { min: 9, max: 10, title: "Красный уровень", desc: "Серьёзные признаки алкоголизма", tokenId: 3 }
 ];
 
-const CONTRACT_ADDRESS = "0x0000000000000000000000000000000000000000"; // Заглушка — замени на свой
+const CONTRACT_ADDRESS = "0x0000000000000000000000000000000000000000"; // Замени на свой
 
 export default function handler(req, res) {
   res.setHeader("Content-Type", "text/html; charset=utf-8");
 
+  // Парсим query params (для GET)
   const urlParams = new URLSearchParams(req.url.split("?")[1] || "");
   let score = parseInt(urlParams.get("s") || "0");
-  let q = parseInt(urlParams.get("q") || "0");
+  let q = parseInt(urlParams.get("q") || "0"); // По умолчанию 0 для первого вопроса
 
+  // Парсим POST body от Farcaster
   let body = {};
   if (req.body) {
     try {
@@ -35,16 +37,17 @@ export default function handler(req, res) {
   }
   const buttonIndex = body.untrustedData?.buttonIndex;
 
-  if (buttonIndex === "1") score += 1;
-  q += 1;
+  if (buttonIndex === "1") score += 1; // "Да" — +1
+  q += 1; // Переходим к следующему вопросу
 
   const baseUrl = `https://${req.headers.host}`;
   let metaTags = "";
 
   if (q <= 10) {
+    // Вопрос — генерируем кнопки
     metaTags = `
       <meta property="fc:frame" content="vNext" />
-      <meta property="fc:frame:image" content="https://via.placeholder.com/1200x1200/FF6B6B/FFFFFF?text=Вопрос+${q}%2F10" />
+      <meta property="fc:frame:image" content="https://via.placeholder.com/1200x1200/FF6B6B/FFFFFF?text=Вопрос+${q}+из+10" />
       <meta property="fc:frame:image:aspect_ratio" content="1:1" />
       <meta property="fc:frame:button:1" content="Да (+1 балл)" />
       <meta property="fc:frame:button:2" content="Нет (0 баллов)" />
@@ -52,6 +55,7 @@ export default function handler(req, res) {
       <title>Вопрос ${q}/10: ${questions[q-1]}</title>
     `;
   } else {
+    // Результат — кнопка минта
     const result = resultData.find(r => score >= r.min && score <= r.max) || resultData[0];
     const userAddress = body.untrustedData?.address || "0xTest";
     const mintUrl = `https://thirdweb.com/base/${CONTRACT_ADDRESS}/transactions/mintTo?recipient=${userAddress}&tokenId=${result.tokenId}`;
@@ -70,14 +74,17 @@ export default function handler(req, res) {
     `;
   }
 
+  // Полный HTML с head и meta
   res.send(`
     <!DOCTYPE html>
     <html lang="ru">
-    <head>${metaTags}</head>
-    <body style="font-family: Arial; text-align: center; padding: 20px;">
+    <head>
+      ${metaTags}
+    </head>
+    <body style="font-family: Arial; text-align: center; padding: 20px; background: #f0f0f0;">
       <h1>Тест "Алкоголик ли вы?"</h1>
-      ${q <= 10 ? `<p><strong>Вопрос ${q}/10:</strong> ${questions[q-1]}</p><p>Счёт: ${score}</p>` : `<p><strong>${result.title}</strong><br>${result.desc}<br>Счёт: ${score}/10</p>`}
-      <p style="font-size: 12px; color: gray;">В Farcaster: нажми кнопку для продолжения.</p>
+      ${q <= 10 ? `<p><strong>Вопрос ${q}/10:</strong><br>${questions[q-1]}</p><p>Текущий счёт: ${score}</p>` : `<p><strong>${result.title}</strong><br>${result.desc}<br>Счёт: ${score}/10</p>`}
+      <p style="font-size: 12px; color: gray;">В Farcaster: кнопки появятся ниже превью. Если нет — проверь мета-теги.</p>
     </body>
     </html>
   `);

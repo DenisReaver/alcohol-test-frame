@@ -48,7 +48,7 @@ export default function handler(req, res) {
   } else {
     // Результат
     const result = resultData.find(r => score >= r.min && score <= r.max);
-    const mintUrl = `https://thirdweb.com/base/${CONTRACT_ADDRESS}/transactions/mintTo?recipient=${req.body.untrustedData?.address}&tokenId=${result.tokenId}`;
+    const mintUrl = `https://nfts2me.com/api/mint/${CONTRACT_ADDRESS}?tokenId=${result.tokenId}&recipient=${req.body.untrustedData?.address}`;
 
     html = `
       <meta property="fc:frame" content="vNext" />

@@ -1,20 +1,24 @@
 <!DOCTYPE html>
-<html>
+<html lang="ru">
 <head>
-  <!-- Основной embed-тег с JSON (для vNext используйте fc:miniapp, но fc:frame работает для совместимости) -->
-  <meta property="fc:frame" content='{"version":"1","imageUrl":"https://i.imgur.com/2JbX7Tk.png","buttons":[{"label":"Начать тест: Алкоголик ли вы?","action":{"type":"post","postUrl":"https://alcohol-test-frame.vercel.app/api/frame"}}]}' />
-  
-  <!-- Альтернатива для vNext: используйте fc:miniapp с похожим JSON, но с action.type = "launch_frame" -->
-  <!-- <meta property="fc:miniapp" content='{"version":"1","imageUrl":"https://i.imgur.com/2JbX7Tk.png","button":{"title":"Начать тест: Алкоголик ли вы?","action":{"type":"launch_frame","name":"Alcohol Test","url":"https://alcohol-test-frame.vercel.app/api/frame"}}}' /> -->
-  
-  <!-- OpenGraph для fallback (опционально, но рекомендуется) -->
-  <meta property="og:image" content="https://i.imgur.com/2JbX7Tk.png" />
-  <meta property="og:image:aspect_ratio" content="3:2" />  <!-- Изменено на 3:2! -->
-  <meta property="og:title" content="Тест: Алкоголик ли вы?" />
-  
+  <meta charset="utf-8" />
   <title>Тест: Алкоголик ли вы?</title>
+
+  <!-- Рабочий способ через отдельные теги (самый надёжный на сегодня) -->
+  <meta property="fc:frame" content="vNext" />
+  <meta property="fc:frame:image" content="https://i.imgur.com/2JbX7Tk.png" />
+  <meta property="fc:frame:image:aspect_ratio" content="1.91:1" />
+  <meta property="fc:frame:button:1" content="Начать тест: Алкоголик ли вы?" />
+  <meta property="fc:frame:button:1:action" content="post" />
+  <meta property="fc:frame:post_url" content="https://alcohol-test-frame.vercel.app/api/frame" />
+
+  <!-- OpenGraph fallback -->
+  <meta property="og:title" content="Тест: Алкоголик ли вы?" />
+  <meta property="og:image" content="https://i.imgur.com/2JbX7Tk.png" />
+  <meta property="og:description" content="Пройдите честный тест из 10 вопросов" />
 </head>
 <body>
-  <!-- Пустое тело, так как рендеринг в клиенте Farcaster. Нет редиректа! -->
+  <h1>Тест: Алкоголик ли вы или нет</h1>
+  <p>Нажмите кнопку ниже в Warpcast, чтобы начать</p>
 </body>
 </html>

@@ -1,18 +1,20 @@
 <!DOCTYPE html>
-<html lang="ru">
+<html>
 <head>
-  <meta charset="utf-8" />
-  <meta property="fc:frame" content="vNext" />
-  <meta property="fc:frame:image" content="https://imgur.com/OsiSnAQ.png/1200x1200/FF6B6B/FFFFFF?text=🍺+Алкоголик+ли+вы%3F" />
-  <meta property="fc:frame:image:aspect_ratio" content="1:1" />
-  <meta property="fc:frame:button:1" content="Пройти тест: Алкоголик ли вы?" />
-  <meta property="fc:frame:post_url" content="/api/frame" />
-  <title>Алкоголик ли вы? Тест в Frame</title>
+  <!-- Основной embed-тег с JSON (для vNext используйте fc:miniapp, но fc:frame работает для совместимости) -->
+  <meta property="fc:frame" content='{"version":"1","imageUrl":"https://i.imgur.com/2JbX7Tk.png","buttons":[{"label":"Начать тест: Алкоголик ли вы?","action":{"type":"post","postUrl":"https://alcohol-test-frame.vercel.app/api/frame"}}]}' />
+  
+  <!-- Альтернатива для vNext: используйте fc:miniapp с похожим JSON, но с action.type = "launch_frame" -->
+  <!-- <meta property="fc:miniapp" content='{"version":"1","imageUrl":"https://i.imgur.com/2JbX7Tk.png","button":{"title":"Начать тест: Алкоголик ли вы?","action":{"type":"launch_frame","name":"Alcohol Test","url":"https://alcohol-test-frame.vercel.app/api/frame"}}}' /> -->
+  
+  <!-- OpenGraph для fallback (опционально, но рекомендуется) -->
+  <meta property="og:image" content="https://i.imgur.com/2JbX7Tk.png" />
+  <meta property="og:image:aspect_ratio" content="3:2" />  <!-- Изменено на 3:2! -->
+  <meta property="og:title" content="Тест: Алкоголик ли вы?" />
+  
+  <title>Тест: Алкоголик ли вы?</title>
 </head>
-<body style="font-family: Arial; text-align: center; padding: 50px; background: #f0f0f0;">
-  <h1>🍺 Алкоголик ли вы? Пройдите тест из 10 вопросов!</h1>
-  <p>Нажмите кнопку ниже в Farcaster, чтобы начать. Результат — уникальный NFT на Base.</p>
-  <img src="https://imgur.com/OsiSnAQ.png/1200x1200/FF6B6B/FFFFFF?text=🍺+Алкоголик+ли+вы%3F" alt="Тест" style="max-width: 300px; border-radius: 10px;" />
-  <p style="font-size: 12px; color: gray;">Если пусто — проверьте логи Vercel.</p>
+<body>
+  <!-- Пустое тело, так как рендеринг в клиенте Farcaster. Нет редиректа! -->
 </body>
 </html>
